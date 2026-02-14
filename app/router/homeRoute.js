@@ -11,5 +11,6 @@ const router=express.Router()
 
 router.get('/', HomeController.homepage)
 router.get('/about', HomeController.aboutpage)
+router.get('/product',HomeController.product)
 
 module.exports=router
