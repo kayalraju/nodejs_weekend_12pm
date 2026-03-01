@@ -1,5 +1,6 @@
 const express=require('express')
 const HomeController = require('../controller/HomeController')
+const AgeCheck = require('../middleware/ageCheckMiddleware')
 const router=express.Router()
 
 
@@ -9,7 +10,7 @@ const router=express.Router()
 // })
 
 
-router.get('/', HomeController.homepage)
+router.get('/',HomeController.homepage)
 router.get('/about', HomeController.aboutpage)
 router.get('/product',HomeController.product)
 
