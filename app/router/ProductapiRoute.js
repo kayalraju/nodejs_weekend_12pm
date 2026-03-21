@@ -1,11 +1,12 @@
 const express=require('express')
 const ProductController = require('../controller/ProductController')
 const ProductEjsController = require('../controller/ProductEjsController')
+const multerUpload = require('../utils/Multer')
 
 const router=express.Router()
 
 //for api
-router.post('/product/crearte',ProductController.createProduct)
+router.post('/product/crearte',multerUpload.single('image'),ProductController.createProduct)
 router.get('/product',ProductController.getProduct)
 router.get('/product/edit/:id',ProductController.getProductById)
 router.put('/product/update/:id',ProductController.updateProduct)

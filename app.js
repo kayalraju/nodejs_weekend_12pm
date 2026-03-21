@@ -17,13 +17,15 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 //static folder using path module
  app.use(express.static(path.join(__dirname,'public'))) 
+ app.use('uploads',express.static(path.join(__dirname,'/uploads')))
+    app.use('/uploads',express.static('uploads'));
  //corse middleware
  app.use(cors())
 
  app.use(Limit)
  
  const productRoute=require('./app/router/ProductapiRoute')
- app.use(productRoute)
+ app.use('/api',productRoute)
 
 const HomeRoute=require('./app/router/homeRoute')
 app.use(HomeRoute)

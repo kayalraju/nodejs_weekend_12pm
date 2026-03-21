@@ -6,6 +6,8 @@ class ProductController{
 
     async createProduct(req,res){
         //console.log(req.body);
+        //console.log(req.file);
+        
         try{
             const {name,price,category}=req.body
 
@@ -14,7 +16,9 @@ class ProductController{
                 price,
                 category
             })
-
+            if(req.file){
+                prod.image=req.file.path
+            }
            const data= await prod.save()
             return res.status(200).json({
                 status:true,
