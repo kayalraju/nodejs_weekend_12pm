@@ -100,6 +100,8 @@ class ProductController{
         try{
             const id=req.params.id
             const data= await Product.findByIdAndDelete(id)
+            //unlink image
+            
             return res.status(200).json({
                 status:true,
                 message:'Product Deleted Successfully',

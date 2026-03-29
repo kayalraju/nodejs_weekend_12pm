@@ -30,6 +30,9 @@ app.use(express.static('public'))
 const HomeRoute=require('./app/router/homeRoute')
 app.use(HomeRoute)
 
+const userAuthRoute=require('./app/router/userAuthRoute')
+app.use('/api',userAuthRoute)
+
 
 const Port=3007
 
