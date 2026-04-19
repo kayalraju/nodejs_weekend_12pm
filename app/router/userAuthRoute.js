@@ -7,6 +7,7 @@ const router=express.Router()
 
 
 router.post('/register',userAuthController.Register)
+router.post('/verify/email',userAuthController.verifyEmail)
 router.post('/login',userAuthController.login)
 router.get('/dashboard',AuthCheck,userAuthController.dashboard)
 
