@@ -139,6 +139,7 @@ class UserAuthController{
                     message:'Password does not match'
                 })
             }
+            
 
             //token
             const token= jwt.sign({
