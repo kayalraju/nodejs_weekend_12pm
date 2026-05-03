@@ -5,12 +5,26 @@ const path=require('path')
 const dbConnection=require('./app/config/dbcon')
 const cors=require('cors')
 const Limit=require('./app/utils/RateLimit')
+const cookieParser=require('cookie-parser')
+const session=require('express-session')
 
 const app=express()
 dbConnection()
 
 app.set('view engine','ejs')
 app.set('views','views')
+
+//cookie parser
+app.use(cookieParser())
+//setup session
+app.use(session({
+    secret: 'keyboardcat',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+     }
+  }))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 //create a static folder
@@ -23,7 +37,8 @@ app.use(express.static('public'))
  app.use(cors())
 
  app.use(Limit)
- 
+ const AuthEjsRoute=require('./app/router/authejsRoute')
+ app.use(AuthEjsRoute)
  const productRoute=require('./app/router/ProductapiRoute')
  app.use('/api',productRoute)
 
