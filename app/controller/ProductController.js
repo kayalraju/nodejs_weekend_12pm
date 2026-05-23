@@ -1,5 +1,6 @@
 
 const Product=require('../models/Product')
+const productSchemaValidation = require('../utils/productvalidate')
 
 class ProductController{
 
@@ -9,16 +10,27 @@ class ProductController{
         //console.log(req.file);
         
         try{
-            const {name,price,category}=req.body
+            //const {name,price,category}=req.body
 
-            const prod= new Product({
-                name,
-                price,
-                category
-            })
-            if(req.file){
-                prod.image=req.file.path
+            const formValue={
+                name:req.body.name,
+                price:req.body.price,
+                category:req.body.category
             }
+
+            //joi validation use
+            const result=productSchemaValidation.validate(formValue)
+            if(result.error){
+                return res.status(400).json({
+                    status:false,
+                    message:result.error.details[0].message
+                })
+            }
+
+            const prod= new Product(formValue)
+            // if(req.file){
+            //     prod.image=req.file.path
+            // }
            const data= await prod.save()
             return res.status(200).json({
                 status:true,

@@ -26,6 +26,8 @@ const ProductSchema=new Schema({
     versionKey: false
 })
 
+//single filed indexing
+ProductSchema.index({name:'text'})
 
 const ProductModel=mongoose.model('product',ProductSchema)
 
