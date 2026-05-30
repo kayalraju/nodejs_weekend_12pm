@@ -71,11 +71,24 @@ app.use('/api',userAuthRoute)
 
 const Port=3007
 
-app.listen(Port,()=>{
-    console.log(`server is running on port ${Port}`)
-})
+// app.listen(Port,()=>{
+//     console.log(`server is running on port ${Port}`)
+// })
 
+function startServer(port) {
+  const server = app.listen(port, () => {
+    console.log(`Server started on ${port}`);
+  });
 
+  server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+      console.log(`Port ${port} busy, trying ${port + 1}`);
+      startServer(port + 1);
+    }
+  });
+}
+
+startServer(Port);
 
 
 
