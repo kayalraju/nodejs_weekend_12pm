@@ -7,6 +7,7 @@ const cors=require('cors')
 const Limit=require('./app/utils/RateLimit')
 const cookieParser=require('cookie-parser')
 const session=require('express-session')
+const helmet=require('helmet')
 
 const app=express()
 dbConnection()
@@ -16,6 +17,7 @@ app.set('views','views')
 
 //cookie parser
 app.use(cookieParser())
+app.use(helmet())
 //setup session
 app.use(session({
     secret: 'keyboardcat',
@@ -34,7 +36,25 @@ app.use(express.static('public'))
  app.use('uploads',express.static(path.join(__dirname,'/uploads')))
     app.use('/uploads',express.static('uploads'));
  //corse middleware
- app.use(cors())
+ //app.use(cors())
+
+ app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow server-to-server requests with no origin
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+  })
+);
 
  app.use(Limit)
  const AuthEjsRoute=require('./app/router/authejsRoute')
