@@ -13,6 +13,9 @@ router.get('/product/edit/:id',ProductController.getProductById)
 router.put('/product/update/:id',ProductController.updateProduct)
 router.delete('/product/delete/:id',ProductController.deleteProduct)
 
+//aggregate
+router.get('/product/aggregate',ProductController.aggregateProduct)
+
 //for ejs
 
 router.get('/product/list',ProductEjsController.list)
