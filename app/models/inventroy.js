@@ -28,8 +28,8 @@ const InventrySchema=new Schema({
 })
 
 //single filed indexing
-ProductSchema.index({name:'text'})
+InventrySchema.index({name:'text'})
 
-const InventryModel=mongoose.model('product',InventrySchema)
+const InventryModel=mongoose.model('pro',InventrySchema)
 
 module.exports=InventryModel
