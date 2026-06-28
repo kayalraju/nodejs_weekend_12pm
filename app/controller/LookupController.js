@@ -70,17 +70,39 @@ class LookupController{
                         as:"category_details"
                     }
                 },
+                {
+                     $unwind: "$category_details"
+                },
+                {
+                    $group: {
+                    _id: "$category_details.name",
+                    products: {   
+                        $push: {
+                        _id: "$_id",
+                        name: "$name",
+                        price: "$price"
+                        }
+                    }
+                    }
+                },
+                {
+                    $project: {
+                    _id: 0,
+                    category: "$_id",
+                    products: 1
+                    }
+                }
                 // {
                 //     $unwind:"$category_details"
                 // }
 
-                {
-                    $project:{
-                        name:1,
-                        price:1,
-                        "category_details.name":1
-                    }
-                }
+                // {
+                //     $project:{
+                //         name:1,
+                //         price:1,
+                //         "category_details.name":1
+                //     }
+                // }
 
                 //user group catgeory wise product
                 // {
