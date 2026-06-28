@@ -5,12 +5,13 @@ const HomeRoute=require('./homeRoute')
 const OperatorRoute=require('./operatorRoute')
 const ProductRoute=require('./ProductapiRoute')
 const UserAuthRoute=require('./userAuthRoute')
+const LookupRoute=require('./lookupRoute')
 
 
 
 
 
-
+router.use(LookupRoute)
 router.use(AuthEjsRouter)
 router.use(HomeRoute)
 router.use(OperatorRoute)
