@@ -10,6 +10,10 @@ const session = require("express-session");
 const helmet = require("helmet");
 const logger = require("./app/utils/logger");
 const morgan = require("morgan");
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const SwaggerOptions = require('./swagger.json');
+const swaggerDocument = swaggerJsDoc(SwaggerOptions);
 
 const app = express();
 dbConnection();
@@ -43,25 +47,27 @@ app.use("/uploads", express.static("uploads"));
 //corse middleware
 //app.use(cors())
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow server-to-server requests with no origin
-      if (!origin) return callback(null, true);
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       // Allow server-to-server requests with no origin
+//       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+//       if (allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   }),
+// );
 
 app.use(Limit);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //define router
 

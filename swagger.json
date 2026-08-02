@@ -1,0 +1,32 @@
+{
+    "swaggerDefinition": {
+      "info": {
+        "title": "Product Api",
+        "version": "1.0.0",
+        "description": "Product API documentation create by webskitters",
+        "contact": {
+          "name": "Raju kayal"
+        },
+        "servers": [
+          "http://localhost:3007"
+          
+        ]  
+      },
+      "tags": [
+        {
+            "name": "Student",
+            "description": "Student CRUD API"
+        },
+        {
+            "name": "Product",
+            "description": "Product API"
+        }
+    ],
+    "schemes": "['https', 'http']"
+      
+    },
+    "apis": [
+      "app.js",
+      "./app/router/*.js"
+    ]
+  }
